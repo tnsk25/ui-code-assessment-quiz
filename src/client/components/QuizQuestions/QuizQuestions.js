@@ -7,8 +7,13 @@ import Summary from '../Summary/Summary';
 const questionsResponse = new QuizBankAPI()
 
 class QuizQuestions extends Component {
-   
- //max count can be configured, initially set to 5   
+  
+ // state object
+ // question array is initially empty but is updated on successful network call to the server  
+ // max count property can be configured, initially set to 5   
+ // qnum is updated to load the next question, initially set to 0 to load the first random question
+ // correct property is updated on question validation. Incremented if user selects the right answer
+
     state = {
         questions: [],
         max_count: 5,
@@ -16,9 +21,13 @@ class QuizQuestions extends Component {
         correct: 0 
     };
 
+// function triggered when component is mounted 
     componentDidMount() {
         this.getQuestionBank()
     }
+
+// Network call is made to get the list of all questions
+// The response data is randomly sorted (select random question) and sliced with limit set to max count
 
     getQuestionBank = () => {
         questionsResponse.getQuestions()
@@ -37,6 +46,8 @@ class QuizQuestions extends Component {
                 // console.log(error)
             })
     }
+
+// submit handler to validate the question and show the next question or the summary upon completion
 
     submitHandler = (event) =>
     {
@@ -69,6 +80,8 @@ class QuizQuestions extends Component {
 
     }
 
+// restarts the quiz with random questions
+    
     restart = () => {
         window.location.reload(false);
     }

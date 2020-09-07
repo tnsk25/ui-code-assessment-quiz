@@ -4,6 +4,7 @@ import { Form, Button } from 'react-bootstrap'
 
 const Questions = (props) => {
 
+    // entities object to convert the html entity to text
 	const entities = {
 	  '&#039;': "'",
 	  '&quot;': '"',
